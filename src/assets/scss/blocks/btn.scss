@@ -1,0 +1,41 @@
+.btn {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  &--primary,
+  &--secondary {
+    padding: 16px 48px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    border-radius: 4px;
+    transition: background-color $default-transition;
+  }
+
+  &--primary {
+    background-color: $color-accent;
+    color: $color-white;
+
+    &:hover {
+      background-color: $color-accent-darker;
+    }
+  }
+
+  &--secondary {
+    color: $color-white;
+    background-color: $color-green;
+
+    &:hover {
+      background-color: $color-green-darker ;
+    }
+  }
+}

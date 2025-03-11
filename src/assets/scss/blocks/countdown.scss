@@ -1,0 +1,26 @@
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 10px;
+  }
+
+  &__head {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+  }
+
+  &__time {
+    font-family: $ff-inter;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 93.75%;
+    letter-spacing: 4px;
+  }
+}

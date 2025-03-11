@@ -1,0 +1,13 @@
+.arrows {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+
+  &__btn {
+    padding: 11px;
+    background-color: $color-secondary;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+  }
+}

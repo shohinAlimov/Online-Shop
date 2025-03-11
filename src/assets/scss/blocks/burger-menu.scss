@@ -1,0 +1,46 @@
+.burger-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: 900;
+  padding: 80px 50px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: transparent;
+  visibility: hidden;
+  user-select: none;
+  opacity: 0;
+  transition: visibility $default-transition, opacity $default-transition, background-color $default-transition;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
+    background-color: $color-accent;
+    transition: opacity $default-transition;
+    user-select: unset;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+
+    list-style: none;
+    margin: 0;
+  }
+
+  &__nav-link {
+    font-size: 16px;
+    line-height: 18px;
+    color: $color-white;
+  }
+}

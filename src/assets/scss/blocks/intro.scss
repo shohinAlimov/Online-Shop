@@ -1,0 +1,51 @@
+.intro {
+  &__top {
+    margin: 0 0 30px 0;
+
+    &-name {
+      position: relative;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 125%;
+      color: $color-accent;
+      padding-left: 36px;
+
+      &::before {
+        position: absolute;
+        content: "";
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        width: 20px;
+        height: 40px;
+        background-color: $color-accent;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  &__bottom {
+    display: grid;
+    grid-template-columns: 600px 1fr;
+    justify-content: space-between;
+    gap: 30px;
+
+    &-left {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    &-title {
+      font-family: $ff-inter;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 36px;
+      letter-spacing: 3px;
+      margin: 0;
+      color: $color-black;
+    }
+
+
+  }
+}
