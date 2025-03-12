@@ -1,0 +1,150 @@
+.product-card {
+
+  &__top {
+    padding: 35px 40px;
+    background: $color-secondary;
+    border-radius: 4px;
+    position: relative;
+    margin: 0 0 16px 0;
+    overflow: hidden;
+  }
+
+
+
+  &__add-cart {
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); // Start slightly lower for animation effect
+    transition: opacity $default-transition, transform $default-transition, visibility 0s linear 0.3s;
+
+    .product-card__top:hover & {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0); // Move up smoothly
+      transition: opacity $default-transition, transform $default-transition, visibility 0s linear 0s;
+    }
+  }
+
+  &__cart-text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    background-color: $color-black;
+    padding: 8px 0;
+    width: 100%;
+    color: $color-white ;
+  }
+
+  &__discount {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: $color-white;
+    padding: 4px 12px;
+    background-color: $color-accent;
+    border-radius: 4px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
+
+  &__image {
+    width: 190px;
+    height: 180px;
+
+    transition: transform $default-transition;
+  }
+
+  &__top:hover .product-card__image {
+    transform: translateY(-20px);
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    display: flex;
+    margin: 0 0 8px 0;
+  }
+
+  &__pricing {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 8px 0;
+  }
+
+  &__current {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: $color-accent;
+  }
+
+  &__old {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    text-decoration: line-through;
+    color: #7F7F7F;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+  }
+
+  &__stock {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    color: #7F7F7F;
+  }
+
+  &__action {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+
+  &__btn {
+    padding: 5px;
+    background-color: $color-white;
+    border-radius: 50%;
+
+    &.active svg {
+      color: $color-accent;
+      fill: $color-accent;
+    }
+  }
+
+  &__cart {
+    display: none;
+  }
+
+  &__wishlist {
+    fill: transparent;
+    color: $color-black;
+    transition: fill $default-transition, color $default-transition;
+
+    &:hover {
+      color: $color-accent;
+      fill: $color-accent;
+    }
+  }
+}

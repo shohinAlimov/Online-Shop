@@ -8,12 +8,16 @@
 
 /* Blocks */
 /* __________________________ */
+@import "./blocks/loader.scss";
 @import "./blocks/header";
 @import "./blocks/burger-menu";
 @import "./blocks/menu-icon";
 @import "./blocks/btn";
 @import "./blocks/hero.scss";
 @import "./blocks/hero-aside.scss";
+@import "./blocks/today-top.scss";
 @import "./blocks/intro.scss";
 @import "./blocks/countdown.scss";
-@import "./blocks/arrows.scss"
+@import "./blocks/arrows.scss";
+@import "./blocks/product-card.scss";
+@import "./blocks/cart.scss";
