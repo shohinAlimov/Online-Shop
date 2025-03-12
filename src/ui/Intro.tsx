@@ -5,81 +5,85 @@ import SeperatorIcon from "../assets/icons/intro-icons/intro-seperator.svg?react
 import ArrowRight from "../assets/icons/intro-icons/intro-arrow-right.svg?react";
 import ArrowLeft from "../assets/icons/intro-icons/intro-arrow-left.svg?react";
 
+
 interface IntroProps {
-  name: string,
-  title: string,
-  showCountDown: boolean,
-  showArrows: boolean
+  title: string;
+  heading: string;
+  showCountdown?: boolean;
+  showArrows?: boolean;
+  showBtnMore?: boolean;
 }
 
-const Intro: React.FC<IntroProps> =
-  ({
-    name,
-    title,
-    showCountDown,
-    showArrows
-  }) => {
-    return (
-      <>
-        <div className="intro">
-          <div className="intro__top">
-            <span className="intro__top-name">{name}</span>
-          </div>
-          <div className="intro__bottom">
-            <div className="intro__bottom-left">
-              <h2 className="intro__bottom-title">{title}</h2>
+const Intro: React.FC<IntroProps> = ({
+  title,
+  heading,
+  showCountdown = true,
+  showArrows = true,
+  showBtnMore = false,
 
-              {showCountDown ? (
-                <div className="countdown">
-                  <span className="countdown__group">
-                    <span className="countdown__head">Days</span>
-                    <span className="countdown__time">03</span>
-                  </span>
-
-                  <SeperatorIcon width={4} height={16} />
-
-                  <span className="countdown__group">
-                    <span className="countdown__head">Hours</span>
-                    <span className="countdown__time">23</span>
-                  </span>
-
-                  <SeperatorIcon width={4} height={16} />
-
-                  <span className="countdown__group">
-                    <span className="countdown__head">Minutes</span>
-                    <span className="countdown__time">19</span>
-                  </span>
-
-                  <SeperatorIcon width={4} height={16} />
-
-                  <span className="countdown__group">
-                    <span className="countdown__head">Seconds</span>
-                    <span className="countdown__time">56</span>
-                  </span>
-                </div>
-              ) : (
-                <>
-                </>
-              )}
-            </div>
-            {showArrows ? (
-              <div className="arrows">
-                <button className="btn arrows__btn">
-                  <ArrowLeft width={24} height={24} />
-                </button>
-
-                <button className="btn arrows__btn">
-                  <ArrowRight width={24} height={24} />
-                </button>
-              </div>
-            ) : (
-              <>
-              </>
-            )}
-          </div>
+}) => {
+  return (
+    <div className='intro__top'>
+      <div className="intro__top-left">
+        <div className="intro__top-main">
+          <span className="intro__top-heading">{title}</span>
+          <h2 className="intro__top-title">{heading}</h2>
         </div>
-      </>
-    )
-  }
+
+        {showCountdown && (
+          <div className="countdown">
+            <div className="countdown__item">
+              <span className="countdown__label">Days</span>
+              <span className="countdown__number">03</span>
+            </div>
+
+            <SeperatorIcon className="countdown__separator" width={4} height={16} aria-hidden="true" />
+
+            <div className="countdown__item">
+              <span className="countdown__label">Hours</span>
+              <span className="countdown__number">23</span>
+            </div>
+
+            <SeperatorIcon className="countdown__separator" width={4} height={16} aria-hidden="true" />
+
+            <div className="countdown__item">
+              <span className="countdown__label">Minutes</span>
+              <span className="countdown__number">19</span>
+            </div>
+
+            <SeperatorIcon className="countdown__separator" width={4} height={16} aria-hidden="true" />
+
+            <div className="countdown__item">
+              <span className="countdown__label">Seconds</span>
+              <span className="countdown__number">56</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {showArrows && (
+        <div className="arrows">
+          <button
+            className='btn arrows__btn'
+            aria-label="Previous"
+          >
+            <ArrowLeft width={24} height={24} aria-hidden="true" />
+          </button>
+
+          <button
+            className='btn arrows__btn'
+            aria-label="Next"
+          >
+            <ArrowRight width={24} height={24} aria-hidden="true" />
+          </button>
+        </div>
+      )}
+
+      {showBtnMore && (
+        <button className="btn btn--primary">View All</button>
+      )}
+    </div>
+  );
+};
 
 export default Intro;
