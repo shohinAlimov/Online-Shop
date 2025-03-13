@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import Header from "../ui/Header";
 import { Link } from "react-router-dom";
 
+
+/* Icons */
+import DropUp from "../assets/icons/cart-icons/cart-drop-up.svg?react";
+import DropSmall from "../assets/icons/cart-icons/cart-drop-small.svg?react";
+
 interface CartItem {
   id: string;
   title: string;
@@ -15,15 +20,16 @@ function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    // Get the cart items from localStorage
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    // Ensure each item has a quantity property
+
     const cartWithQuantity = cart.map((item: any) => ({
       ...item,
       quantity: item.quantity || 1
     }));
-    setCartItems(cartWithQuantity);
-  }, []);
+
+    setCartItems(cartWithQuantity)
+  }, [])
+
 
   // Function to handle removing an item from the cart
   const handleDeleteItem = (id: string) => {
@@ -78,78 +84,106 @@ function CartPage() {
             {cartItems.length === 0 ? (
               <div className="cart__empty">
                 <p>No items in your cart.</p>
-                <Link to="/" className="cart__continue-shopping">Continue Shopping</Link>
+                <Link to="/" className="btn btn--primary cart__continue-shopping">Continue Shopping</Link>
               </div>
             ) : (
-              <div className="cart__content">
-                <table className="cart__table">
-                  <thead className="cart__table-header">
-                    <tr className="cart__row cart__row--header">
-                      <th className="cart__cell cart__cell--header cart__cell--product">Product</th>
-                      <th className="cart__cell cart__cell--header cart__cell--price">Price</th>
-                      <th className="cart__cell cart__cell--header cart__cell--quantity">Quantity</th>
-                      <th className="cart__cell cart__cell--header cart__cell--subtotal">Subtotal</th>
-                    </tr>
-                  </thead>
-                  <tbody className="cart__table-body">
-                    {cartItems.map((item) => (
-                      <tr key={item.id} className="cart__row">
-                        <td className="cart__cell cart__cell--product">
-                          <button
-                            className="cart__remove-btn"
-                            onClick={() => handleDeleteItem(item.id)}
-                          >
-                            ×
-                          </button>
-                          <div className="cart__product">
-                            <img src={item.thumbnail} alt={item.title} className="cart__product-image" />
-                            <span className="cart__product-name">{item.title}</span>
-                          </div>
-                        </td>
-                        <td className="cart__cell cart__cell--price">${item.finalPrice}</td>
-                        <td className="cart__cell cart__cell--quantity">
-                          <div className="cart__quantity">
-                            <input
-                              type="text"
-                              value={item.quantity.toString().padStart(2, '0')}
-                              readOnly
-                              className="cart__quantity-input"
-                            />
-                            <div className="cart__quantity-buttons">
-                              <button
-                                className="cart__quantity-btn cart__quantity-btn--up"
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              >
-                                ▲
-                              </button>
-                              <button
-                                className="cart__quantity-btn cart__quantity-btn--down"
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              >
-                                ▼
-                              </button>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="cart__cell cart__cell--subtotal">
-                          ${calculateSubtotal(item.finalPrice, item.quantity)}
-                        </td>
+              <>
+                <div className="cart__content">
+                  <table className="cart__table">
+                    <thead className="cart__table-header">
+                      <tr className="cart__row cart__row--header">
+                        <th className="cart__cell cart__cell--header cart__cell--product">Product</th>
+                        <th className="cart__cell cart__cell--header cart__cell--price">Price</th>
+                        <th className="cart__cell cart__cell--header cart__cell--quantity">Quantity</th>
+                        <th className="cart__cell cart__cell--header cart__cell--subtotal">Subtotal</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="cart__table-body">
+                      {cartItems.map((item) => (
+                        <tr key={item.id} className="cart__row">
+                          <td className="cart__cell cart__cell--product">
+                            <button
+                              className="cart__remove-btn"
+                              onClick={() => handleDeleteItem(item.id)}
+                            >
+                              ×
+                            </button>
+                            <div className="cart__product">
+                              <img src={item.thumbnail} alt={item.title} className="cart__product-image" />
+                              <span className="cart__product-name">{item.title}</span>
+                            </div>
+                          </td>
+                          <td className="cart__cell cart__cell--price">${item.finalPrice}</td>
+                          <td className="cart__cell cart__cell--quantity">
+                            <div className="cart__quantity">
+                              <input
+                                type="text"
+                                value={item.quantity.toString().padStart(2, '0')}
+                                readOnly
+                                className="cart__quantity-input"
+                              />
+                              <div className="cart__quantity-buttons">
+                                <button
+                                  className="btn cart__quantity-btn cart__quantity-btn--up"
+                                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                >
+                                  <DropUp width={16} height={16} />
+                                </button>
+                                <button
+                                  className="btn cart__quantity-btn cart__quantity-btn--down"
+                                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                >
+                                  <DropSmall width={16} height={16} />
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="cart__cell cart__cell--subtotal">
+                            ${calculateSubtotal(item.finalPrice, item.quantity)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
 
-                <div className="cart__footer">
-                  <div className="cart__total">
-                    <span className="cart__total-label">Total:</span>
-                    <span className="cart__total-value">${calculateTotal()}</span>
+                  <div className="cart__buttons">
+                    <Link className="btn btn--stroke" to={"/"}>Return To Shop</Link>
+                    <button className="btn btn--stroke">Update Cart</button>
                   </div>
-                  <div className="cart__actions">
-                    <Link to="/" className="cart__action cart__action--continue">Continue Shopping</Link>
-                    <Link to="/checkout" className="cart__action cart__action--checkout">Proceed to Checkout</Link>
+
+                  <div className="cart__footer">
+                    <div className="cart__coupon">
+                      <input
+                        className="custom-input cart__coupon-input"
+                        type="text"
+                        placeholder="Coupon Code"
+                      />
+                      <button className="btn btn--primary">Apply Coupon</button>
+                    </div>
+                    <div className="cart__total">
+
+                      <span className="cart__total-label">Cart Total</span>
+                      <ul className="cart__info">
+                        <li className="cart__item">
+                          <span className="cart__info-text cart__main">Subtotal: </span>
+                          <span className="cart__info-text cart__price">${calculateTotal()}</span>
+                        </li>
+
+                        <li className="cart__item">
+                          <span className="cart__info-text cart__main">Shipping:</span>
+                          <span className="cart__info-text cart__price">Free</span>
+                        </li>
+                        <li className="cart__item">
+                          <span className="cart__info-text cart__main">Total:</span>
+                          <span className="cart__info-text cart__price">${calculateTotal()}</span>
+                        </li>
+                      </ul>
+                      <Link className="btn btn--primary cart__checkout" to={"/checkout"}>Procees to checkout</Link>
+                    </div>
+
                   </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </section>
