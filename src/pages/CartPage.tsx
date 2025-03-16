@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import Header from "../ui/Header";
 import { Link } from "react-router-dom";
 
-
 /* Icons */
 import DropUp from "../assets/icons/cart-icons/cart-drop-up.svg?react";
 import DropSmall from "../assets/icons/cart-icons/cart-drop-small.svg?react";
 import RemoveIcon from "../assets/icons/cart-icons/cart-remove-product.svg?react";
+import Footer from "../ui/Footer";
 
 interface CartItem {
   id: string;
@@ -193,6 +193,7 @@ function CartPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

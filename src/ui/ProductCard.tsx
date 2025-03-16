@@ -1,7 +1,7 @@
 import Star from "../assets/icons/product-card-icons/product-card-filled-star.svg?react";
 import HalfStar from "../assets/icons/product-card-icons/product-card-half-filled-star.svg?react";
 import { ProductCardProps } from "../types/ProductCardTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /* Icons */
 import Wishlist from "../assets/icons/product-card-icons/product-card-wishlist.svg?react";
@@ -23,6 +23,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onRemove
 }) => {
   const [isActive, setIsActive] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const productExists = wishlist.some((item: any) => item.id === id);
+    setIsActive(productExists);
+  }, [id]);
+
+  const showNotification = (message: string) => {
+    setModalMessage(message);
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 2000); // Hide after 2 seconds
+  };
 
   const finalPrice = discountPercentage > 0
     ? (price * (1 - discountPercentage / 100)).toFixed(2)
@@ -35,30 +49,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const handleWishlistClick = () => {
-    setIsActive(!isActive);
+    let wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const productIndex = wishlist.findIndex((item: any) => item.id === id);
 
-    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-
-    const existingProduct = wishlist.find((item: any) => item.id === id);
-
-    if (existingProduct) {
-      alert("This item is already in your wishlist!");
-      return;
+    if (productIndex !== -1) {
+      // Remove from wishlist
+      wishlist.splice(productIndex, 1);
+      setIsActive(false);
+      showNotification("Removed from wishlist!");
+    } else {
+      // Add to wishlist
+      wishlist.push({ id, title, price, rating, stock, thumbnail, discountPercentage });
+      setIsActive(true);
+      showNotification("Added to wishlist!");
     }
 
-    wishlist.push({
-      id,
-      title,
-      price,
-      rating,
-      stock,
-      thumbnail,
-      discountPercentage,
-    });
-
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-    alert("Item added tso wishlist!");
   };
 
   const handleAddToCart = () => {
@@ -116,6 +122,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className="product-card" key={id}>
+      {showModal && (
+        <div className={showModal ? "modal" : "modal hide"}>
+          <p>{modalMessage}</p>
+        </div>
+      )}
+
       <div className="product-card__top">
         {discountPercentage > 0 && (
           <span className="product-card__discount">-{discountPercentage.toFixed(0)}%</span>

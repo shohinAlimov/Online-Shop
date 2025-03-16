@@ -1,3 +1,4 @@
+import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 
 function LoginPage() {
@@ -7,6 +8,7 @@ function LoginPage() {
       <main>
         Login
       </main>
+      <Footer />
     </>
   )
 }

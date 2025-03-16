@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import TodayTop from "../components/TodayTop";
+import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 
 function HomePage() {
@@ -10,6 +11,8 @@ function HomePage() {
         <Hero />
         <TodayTop />
       </main>
+      <Footer />
+
     </>
   )
 }

@@ -26,38 +26,59 @@ function TodayTop() {
   }, [])
 
   if (loading) {
-    return <Loader />;
+    return (
+      <section className="today-top">
+        <div className="container">
+          <div className="today-top__wrapper">
+            <Intro
+              title={"Today's"}
+              heading={"Flash Sales"}
+              showCountdown={true}
+              showArrows={true}
+            />
+
+            <Loader />
+
+            <button className="btn btn--primary today-top__btn-more">View All Products</button>
+
+          </div>
+        </div>
+      </section>
+
+    );
   }
 
   return (
     <>
       <section className="today-top">
         <div className="container">
+          <div className="today-top__wrapper">
+            <Intro
+              title={"Today's"}
+              heading={"Flash Sales"}
+              showCountdown={true}
+              showArrows={true}
+            />
 
-          <Intro
-            title={"Today's"}
-            heading={"Flash Sales"}
-            showCountdown={true}
-            showArrows={true}
-          />
+            <ul className="today-top__list">
+              {products.map(product => (
+                <li className="today-top__item" key={product.id}>
+                  <ProductCard
+                    id={product.id}
+                    title={product.title}
+                    price={product.price}
+                    discountPercentage={product.discountPercentage}
+                    rating={product.rating}
+                    stock={product.stock}
+                    thumbnail={product.thumbnail}
+                  />
+                </li>
+              ))}
+            </ul>
 
-          <ul className="today-top__list">
-            {products.map(product => (
-              <li className="today-top__item" key={product.id}>
-                <ProductCard
-                  id={product.id}
-                  title={product.title}
-                  price={product.price}
-                  discountPercentage={product.discountPercentage}
-                  rating={product.rating}
-                  stock={product.stock}
-                  thumbnail={product.thumbnail}
-                />
-              </li>
+            <button className="btn btn--primary today-top__btn-more">View All Products</button>
 
-            ))}
-          </ul>
-
+          </div>
         </div>
       </section>
     </>
