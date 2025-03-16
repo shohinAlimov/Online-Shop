@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 /* Icons */
 import DropUp from "../assets/icons/cart-icons/cart-drop-up.svg?react";
 import DropSmall from "../assets/icons/cart-icons/cart-drop-small.svg?react";
+import RemoveIcon from "../assets/icons/cart-icons/cart-remove-product.svg?react";
 
 interface CartItem {
   id: string;
@@ -30,6 +31,10 @@ function CartPage() {
     setCartItems(cartWithQuantity)
   }, [])
 
+  const refreshCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems(cart);
+  };
 
   // Function to handle removing an item from the cart
   const handleDeleteItem = (id: string) => {
@@ -106,7 +111,7 @@ function CartPage() {
                               className="cart__remove-btn"
                               onClick={() => handleDeleteItem(item.id)}
                             >
-                              ×
+                              <RemoveIcon width={6} height={6} />
                             </button>
                             <div className="cart__product">
                               <img src={item.thumbnail} alt={item.title} className="cart__product-image" />
@@ -148,7 +153,7 @@ function CartPage() {
 
                   <div className="cart__buttons">
                     <Link className="btn btn--stroke" to={"/"}>Return To Shop</Link>
-                    <button className="btn btn--stroke">Update Cart</button>
+                    <button className="btn btn--stroke" onClick={refreshCart}>Update Cart</button>
                   </div>
 
                   <div className="cart__footer">

@@ -83,20 +83,22 @@
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #ff4d4d;
+    background-color: $color-accent;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-size: 16px;
 
+    transition: background-color $default-transition;
+
     &:hover {
-      background-color: #ff0000;
+      background-color: $color-accent-darker;
     }
   }
 
