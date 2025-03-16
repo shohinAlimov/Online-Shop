@@ -2,14 +2,49 @@ import { Link, NavLink } from 'react-router-dom';
 import CartIcon from '../assets/icons/header-icons/header-cart.svg?react';
 import SearchIcon from '../assets/icons/header-icons/header-search.svg?react';
 import WishlistIcon from "../assets/icons/header-icons/header-wishlist.svg?react";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Header() {
   const [isActive, setIsActive] = useState(false);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalWishlist, setTotalWishlist] = useState(0);
+
 
   const toggleClass = () => {
     setIsActive(!isActive);
   }
+
+  useEffect(() => {
+    const updateWishlistCount = () => {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+      setTotalWishlist(wishlist.length);
+    };
+
+    updateWishlistCount();
+
+    window.addEventListener("storage", updateWishlistCount);
+
+    return () => {
+      window.removeEventListener("storage", updateWishlistCount);
+    };
+  }, [])
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const total = cart.reduce((sum: number, item: any) => sum + item.quantity, 0);
+      setTotalItems(total);
+    };
+
+    updateCartCount(); // Update on first render
+
+    // Listen for storage updates (if cart is updated in another component)
+    window.addEventListener("storage", updateCartCount);
+
+    return () => {
+      window.removeEventListener("storage", updateCartCount);
+    };
+  }, []);
 
   return (
     <header className="header">
@@ -68,9 +103,12 @@ function Header() {
               <div className="header__buttons">
                 <Link className="btn header__btn" to="/Wishlist">
                   <WishlistIcon width={32} height={32} color='black' />
+                  <span className='header__cart-counter'>{totalWishlist}</span>
+
                 </Link>
                 <Link className="btn header__btn" to="/Cart">
                   <CartIcon width={32} height={32} color='black' />
+                  <span className='header__cart-counter'>{totalItems}</span>
                 </Link>
                 <button className="header__burger" type="button" onClick={toggleClass}>
                   <div className={`menu-icon ${isActive ? 'menu-icon--active' : ''}`}>

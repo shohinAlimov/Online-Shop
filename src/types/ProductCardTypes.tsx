@@ -1,9 +1,13 @@
 export interface ProductCardProps {
-  id: number;
+  id: string;
   title: string;
   price: number;
-  discountPercentage: number;
-  rating: number;
+  discountPercentage?: number;
+  showRating?: boolean;
+  rating?: number;
   stock: number;
   thumbnail: string;
+  showCartIcon?: boolean;
+  showDeleteBtn?: boolean;
+  onRemove?: (id: string) => void
 }

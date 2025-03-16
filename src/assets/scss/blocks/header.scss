@@ -200,7 +200,6 @@
 
 
 
-
   &__inner {
     display: flex;
     align-items: center;
@@ -263,8 +262,30 @@
   }
 
   &__btn {
+    position: relative;
+
     @media (max-width:768px) {
       display: none;
     }
+  }
+
+  &__cart-counter {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: $color-accent;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 125%;
+
+    color: $color-white;
   }
 }
