@@ -9,5 +9,6 @@ export interface ProductCardProps {
   thumbnail: string;
   showCartIcon?: boolean;
   showDeleteBtn?: boolean;
-  onRemove?: (id: string) => void
+  onRemove?: (id: string) => void;
+  instantDel?: boolean;
 }

@@ -1,18 +1,10 @@
 import React from "react";
+import { IntroProps } from "../types/IntroProps";
 
 /* Icons */
 import SeperatorIcon from "../assets/icons/intro-icons/intro-seperator.svg?react";
 import ArrowRight from "../assets/icons/intro-icons/intro-arrow-right.svg?react";
 import ArrowLeft from "../assets/icons/intro-icons/intro-arrow-left.svg?react";
-
-
-interface IntroProps {
-  title: string;
-  heading: string;
-  showCountdown?: boolean;
-  showArrows?: boolean;
-  showBtnMore?: boolean;
-}
 
 const Intro: React.FC<IntroProps> = ({
   title,

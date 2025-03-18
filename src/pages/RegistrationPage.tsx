@@ -1,3 +1,4 @@
+import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 
 function RegistrationPage() {
@@ -6,6 +7,7 @@ function RegistrationPage() {
       <Header />
       <main>
         Registration
+        <Footer />
       </main>
     </>
   )

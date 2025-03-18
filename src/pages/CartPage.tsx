@@ -2,23 +2,16 @@ import { useEffect, useState } from "react";
 import Header from "../ui/Header";
 import { Link } from "react-router-dom";
 
-
 /* Icons */
 import DropUp from "../assets/icons/cart-icons/cart-drop-up.svg?react";
 import DropSmall from "../assets/icons/cart-icons/cart-drop-small.svg?react";
 import RemoveIcon from "../assets/icons/cart-icons/cart-remove-product.svg?react";
+import Footer from "../ui/Footer";
+import { CartItemProps } from "../types/CartItemProps";
 
-interface CartItem {
-  id: string;
-  title: string;
-  thumbnail: string;
-  finalPrice: number;
-  stock: number;
-  quantity: number;
-}
 
 function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -38,13 +31,10 @@ function CartPage() {
 
   // Function to handle removing an item from the cart
   const handleDeleteItem = (id: string) => {
-    // Filter out the item with the given id
     const updatedCart = cartItems.filter(item => item.id !== id);
 
-    // Update the state with the new cart items
     setCartItems(updatedCart);
 
-    // Update localStorage with the new cart
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     alert("Item removed from cart");
@@ -193,6 +183,7 @@ function CartPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

@@ -1,9 +1,12 @@
-import Star from "../assets/icons/product-card-icons/product-card-filled-star.svg?react";
-import HalfStar from "../assets/icons/product-card-icons/product-card-half-filled-star.svg?react";
-import { ProductCardProps } from "../types/ProductCardTypes";
-import { useState } from "react";
+import { ProductCardProps } from "../types/ProductCardProps";
+import { useEffect, useState } from "react";
+import { useNotification } from "../hooks/useNotification";
+
 
 /* Icons */
+import Star from "../assets/icons/product-card-icons/product-card-filled-star.svg?react";
+import HalfStar from "../assets/icons/product-card-icons/product-card-half-filled-star.svg?react";
+
 import Wishlist from "../assets/icons/product-card-icons/product-card-wishlist.svg?react";
 import View from "../assets/icons/product-card-icons/product-card-view.svg?react";
 import CartIcon from "../assets/icons/product-card-icons/product-card-add-cart.svg?react";
@@ -20,9 +23,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
   thumbnail,
   showCartIcon = false,
   showDeleteBtn = false,
-  onRemove
+  onRemove,
+  instantDel = false
 }) => {
   const [isActive, setIsActive] = useState(false);
+  const { showModal, modalMessage, showNotification } = useNotification(); // Use it here
+
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const productExists = wishlist.some((item: any) => item.id === id);
+    setIsActive(productExists);
+  }, [id]);
 
   const finalPrice = discountPercentage > 0
     ? (price * (1 - discountPercentage / 100)).toFixed(2)
@@ -35,30 +46,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const handleWishlistClick = () => {
-    setIsActive(!isActive);
+    let wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const productIndex = wishlist.findIndex((item: any) => item.id === id);
 
-    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-
-    const existingProduct = wishlist.find((item: any) => item.id === id);
-
-    if (existingProduct) {
-      alert("This item is already in your wishlist!");
-      return;
+    if (productIndex !== -1) {
+      // Remove from wishlist
+      wishlist.splice(productIndex, 1);
+      setIsActive(false);
+      showNotification("Removed from wishlist!");
+    } else {
+      // Add to wishlist
+      wishlist.push({ id, title, price, rating, stock, thumbnail, discountPercentage });
+      setIsActive(true);
+      showNotification("Added to wishlist!");
     }
 
-    wishlist.push({
-      id,
-      title,
-      price,
-      rating,
-      stock,
-      thumbnail,
-      discountPercentage,
-    });
-
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-    alert("Item added tso wishlist!");
   };
 
   const handleAddToCart = () => {
@@ -67,7 +70,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     const existingProduct = cart.find((item: any) => item.id === id);
 
     if (existingProduct) {
-
       existingProduct.quantity += 1; // Увеличиваем количество
     } else {
       cart.push({
@@ -83,7 +85,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
+    showNotification("Product added to cart!");
+
+    if (instantDel && onRemove) {
+      onRemove(id);
+    }
   }
 
 
@@ -116,6 +122,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className="product-card" key={id}>
+      {showModal && (
+        <div className={showModal ? "modal" : "modal hide"}>
+          <p>{modalMessage}</p>
+        </div>
+      )}
+
       <div className="product-card__top">
         {discountPercentage > 0 && (
           <span className="product-card__discount">-{discountPercentage.toFixed(0)}%</span>

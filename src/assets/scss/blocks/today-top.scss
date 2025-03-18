@@ -1,4 +1,9 @@
 .today-top {
+  margin: 0 0 80px 0;
+
+  &__wrapper {
+    border-bottom: 0.5px solid $color-black;
+  }
 
   &__list {
     margin: 0;
@@ -11,6 +16,10 @@
     justify-content: space-between;
 
     margin: 0 0 60px 0;
+  }
+
+  &__btn-more {
+    margin: 0 auto 60px;
   }
 
 }
