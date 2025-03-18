@@ -9,7 +9,6 @@ function Header() {
   const [totalItems, setTotalItems] = useState(0);
   const [totalWishlist, setTotalWishlist] = useState(0);
 
-
   const toggleClass = () => {
     setIsActive(!isActive);
   }

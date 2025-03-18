@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import Header from "../ui/Header";
 import { Link } from "react-router-dom";
 import ProductCard from "../ui/ProductCard";
-import { ProductCardProps } from "../types/ProductCardTypes";
+import { ProductCardProps } from "../types/ProductCardProps";
 import Footer from "../ui/Footer";
+import { useNotification } from "../hooks/useNotification";
 
 function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState<ProductCardProps[]>([]);
+  const { showModal, modalMessage, showNotification } = useNotification(); // Use it here
 
   useEffect(() => {
     const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
@@ -17,6 +19,7 @@ function WishlistPage() {
     const updatedWishlist = wishlistItems.filter((item: any) => item.id !== id);
     setWishlistItems(updatedWishlist);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    showNotification("Product added to cart!");
   };
 
   const handleMoveAllToBag = () => {
@@ -44,13 +47,16 @@ function WishlistPage() {
     localStorage.setItem("wishlist", JSON.stringify([]));
   };
 
-
-
   return (
     <>
       <Header />
       <main>
         <section className="wishlist">
+          {showModal && (
+            <div className={showModal ? "modal" : "modal hide"}>
+              <p>{modalMessage}</p>
+            </div>
+          )}
           <div className="container">
             {wishlistItems.length === 0 ? (
               <div className="wishlist__empty">
@@ -75,6 +81,7 @@ function WishlistPage() {
                           showCartIcon={false}
                           showDeleteBtn={true}
                           onRemove={handleRemoveFromWishlist}
+                          instantDel={true}
                         />
                       </li>
                     ))}

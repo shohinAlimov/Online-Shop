@@ -1,9 +1,12 @@
-import Star from "../assets/icons/product-card-icons/product-card-filled-star.svg?react";
-import HalfStar from "../assets/icons/product-card-icons/product-card-half-filled-star.svg?react";
-import { ProductCardProps } from "../types/ProductCardTypes";
+import { ProductCardProps } from "../types/ProductCardProps";
 import { useEffect, useState } from "react";
+import { useNotification } from "../hooks/useNotification";
+
 
 /* Icons */
+import Star from "../assets/icons/product-card-icons/product-card-filled-star.svg?react";
+import HalfStar from "../assets/icons/product-card-icons/product-card-half-filled-star.svg?react";
+
 import Wishlist from "../assets/icons/product-card-icons/product-card-wishlist.svg?react";
 import View from "../assets/icons/product-card-icons/product-card-view.svg?react";
 import CartIcon from "../assets/icons/product-card-icons/product-card-add-cart.svg?react";
@@ -20,23 +23,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
   thumbnail,
   showCartIcon = false,
   showDeleteBtn = false,
-  onRemove
+  onRemove,
+  instantDel = false
 }) => {
   const [isActive, setIsActive] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const { showModal, modalMessage, showNotification } = useNotification(); // Use it here
 
   useEffect(() => {
     const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
     const productExists = wishlist.some((item: any) => item.id === id);
     setIsActive(productExists);
   }, [id]);
-
-  const showNotification = (message: string) => {
-    setModalMessage(message);
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 2000); // Hide after 2 seconds
-  };
 
   const finalPrice = discountPercentage > 0
     ? (price * (1 - discountPercentage / 100)).toFixed(2)
@@ -73,7 +70,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     const existingProduct = cart.find((item: any) => item.id === id);
 
     if (existingProduct) {
-
       existingProduct.quantity += 1; // Увеличиваем количество
     } else {
       cart.push({
@@ -89,7 +85,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
+    showNotification("Product added to cart!");
+
+    if (instantDel && onRemove) {
+      onRemove(id);
+    }
   }
 
 

@@ -6,7 +6,7 @@ import Intro from "../ui/Intro";
 import ProductCard from "../ui/ProductCard";
 
 /* Types */
-import { ProductCardProps } from "../types/ProductCardTypes";
+import { ProductCardProps } from "../types/ProductCardProps";
 import Loader from "../ui/Loader";
 
 function TodayTop() {
