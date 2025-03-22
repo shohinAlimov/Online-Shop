@@ -2,7 +2,6 @@ import { ProductCardProps } from "../types/ProductCardProps";
 import { useEffect, useState } from "react";
 import { useNotification } from "../hooks/useNotification";
 
-
 /* Icons */
 import Star from "../assets/icons/product-card-icons/product-card-filled-star.svg?react";
 import HalfStar from "../assets/icons/product-card-icons/product-card-half-filled-star.svg?react";
