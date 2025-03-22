@@ -1,0 +1,76 @@
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  &__input {
+    border: none;
+    border-bottom: 1px solid #BFBFBF;
+    outline: none;
+
+    color: $color-black;
+    padding-bottom: 8px;
+  }
+
+  &__btn {
+    width: 100%;
+    margin: 0 0 16px 0;
+
+    &--margin {
+      margin: 0 0 32px 0;
+    }
+
+    &--small {
+      max-width: 143px;
+      margin: 0;
+    }
+  }
+
+  &__account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    &-text {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 150%;
+    }
+
+    &-link {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 150%;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "";
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0%;
+        height: 1px;
+        background-color: #7f7f7f;
+      }
+    }
+  }
+
+  &__actions {
+    &--login {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 30px;
+    }
+  }
+
+  &__reset-pswrd {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: $color-accent;
+  }
+}

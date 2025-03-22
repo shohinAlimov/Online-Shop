@@ -1,0 +1,46 @@
+.account-auth {
+  margin: 60px 0 140px;
+  position: relative;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 370px;
+    align-items: center;
+    gap: 100px;
+    justify-content: space-between;
+  }
+
+  &__image {
+    position: absolute;
+    left: 0;
+  }
+
+  &__info-part {
+    grid-column: 2/3;
+    margin: 125px 0;
+
+    &--login {
+      margin: 228px 0;
+    }
+  }
+
+  &__heading {
+    font-family: $ff-inter;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 83.33%;
+    letter-spacing: 4%;
+    margin: 0 0 24px 0;
+  }
+
+  &__note {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    display: block;
+    margin: 0 0 48px 0;
+  }
+
+
+}
