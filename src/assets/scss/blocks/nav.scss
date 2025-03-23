@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &__home,
+  &__sep,
+  &__cart {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: #7F7F7F;
+  }
+
+  &__cart {
+    color: $color-black;
+  }
+
+  &__welcome {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+
+    &-name {
+      color: $color-accent;
+    }
+  }
+}

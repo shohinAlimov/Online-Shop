@@ -7,18 +7,20 @@ import RegistrationPage from "./pages/RegistrationPage";
 import PageNotFoundPage from "./pages/PageNotFoundPage";
 import WishlistPage from "./pages/WishlistPage";
 import CartPage from "./pages/CartPage";
+import AccountPage from "./pages/AccountPage";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/About" element={<AboutPage />} />
-        <Route path="/Contacts" element={<ContactsPage />} />
-        <Route path="/SignIn" element={<LoginPage />} />
-        <Route path="/SignUp" element={<RegistrationPage />} />
-        <Route path="/Wishlist" element={<WishlistPage />} />
-        <Route path="/Cart" element={<CartPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/signin" element={<LoginPage />} />
+        <Route path="/signup" element={<RegistrationPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/myaccount" element={<AccountPage />} />
         <Route path="*" element={<PageNotFoundPage />} />
       </Routes>
     </Router>

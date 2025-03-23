@@ -69,10 +69,10 @@ function CartPage() {
         <section className="cart">
           <div className="container">
             <div className="cart__header">
-              <span className="cart__nav">
-                <Link className="cart__nav-home" to={"/"}>Home</Link>
-                <span className="cart__nav-sep">/</span>
-                <Link className="cart__nav-cart" to={"/Cart"}>Cart</Link>
+              <span className="nav">
+                <Link className="nav__home" to={"/"}>Home</Link>
+                <span className="nav__sep">/</span>
+                <Link className="nav__cart" to={"/Cart"}>Cart</Link>
               </span>
             </div>
 

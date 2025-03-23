@@ -264,8 +264,17 @@
   &__btn {
     position: relative;
 
-    @media (max-width:768px) {
-      display: none;
+    &--user.active {
+      background-color: $color-accent;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+
+      & svg {
+        color: $color-white;
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 

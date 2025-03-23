@@ -1,13 +1,25 @@
 import { Link, NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+/* Icons */
 import CartIcon from '../assets/icons/header-icons/header-cart.svg?react';
 import SearchIcon from '../assets/icons/header-icons/header-search.svg?react';
 import WishlistIcon from "../assets/icons/header-icons/header-wishlist.svg?react";
-import { useEffect, useState } from 'react';
+import AccountIcon from "../assets/icons/header-icons/header-account.svg?react";
 
 function Header() {
   const [isActive, setIsActive] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [totalWishlist, setTotalWishlist] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Track login status
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const toggleClass = () => {
     setIsActive(!isActive);
@@ -78,20 +90,25 @@ function Header() {
                   </NavLink>
                 </li>
                 <li className="header__navigation-item">
-                  <NavLink className={`header__navigation-link ${isActive}`} to="/Contacts">
+                  <NavLink className={`header__navigation-link ${isActive}`} to="/contacts">
                     Contact
                   </NavLink>
                 </li>
                 <li className="header__navigation-item">
-                  <NavLink className={`header__navigation-link ${isActive}`} to="/About">
+                  <NavLink className={`header__navigation-link ${isActive}`} to="/about">
                     About
                   </NavLink>
                 </li>
-                <li className="header__navigation-item">
-                  <NavLink className={`header__navigation-link ${isActive}`} to="/SignUp">
-                    Sign Up
-                  </NavLink>
-                </li>
+                {!isLoggedIn ? (
+                  <li className="header__navigation-item">
+                    <NavLink className={`header__navigation-link ${isActive}`} to="/signup">
+                      Sign Up
+                    </NavLink>
+                  </li>
+                ) : (
+                  <>
+                  </>
+                )}
               </ul>
             </nav>
             <div className="header__inner">
@@ -100,7 +117,7 @@ function Header() {
                 <SearchIcon className='header__search-icon' width={24} height={24} color='black' />
               </div>
               <div className="header__buttons">
-                <Link className="btn header__btn" to="/Wishlist">
+                <Link className="btn header__btn" to="/wishlist">
                   <WishlistIcon width={32} height={32} color='black' />
                   <span className='header__cart-counter'>{totalWishlist}</span>
 
@@ -109,6 +126,19 @@ function Header() {
                   <CartIcon width={32} height={32} color='black' />
                   <span className='header__cart-counter'>{totalItems}</span>
                 </Link>
+                {isLoggedIn ? (
+                  <NavLink
+                    className={({ isActive }) =>
+                      `btn header__btn header__btn--user ${isActive ? "active" : ""}`
+                    }
+                    to="/myaccount"
+                  >
+                    <AccountIcon width={32} height={32} />
+                  </NavLink>
+                ) : (
+                  <>
+                  </>
+                )}
                 <button className="header__burger" type="button" onClick={toggleClass}>
                   <div className={`menu-icon ${isActive ? 'menu-icon--active' : ''}`}>
                     <span></span>
