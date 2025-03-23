@@ -1,25 +1,7 @@
 .cart {
   margin: 0 0 140px 0;
 
-  &__nav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 80px 0 40px;
 
-    &-home,
-    &-sep,
-    &-cart {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 150%;
-      color: #7F7F7F;
-    }
-
-    &-cart {
-      color: $color-black;
-    }
-  }
 
   &__header {
     margin-bottom: 30px;

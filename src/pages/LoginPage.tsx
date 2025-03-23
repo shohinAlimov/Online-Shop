@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
@@ -13,17 +13,6 @@ function LoginPage() {
     email: "",
     password: "",
   });
-
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Track login status
-
-  useEffect(() => {
-    // Check if user is already logged in
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    if (loggedInUser) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
 
   // Handle input changes
   const handleChange = (e: any) => {
@@ -50,19 +39,11 @@ function LoginPage() {
     if (user) {
       showNotification("Login successful!");
       localStorage.setItem("loggedInUser", JSON.stringify(user)); // Store logged-in user
-      setIsLoggedIn(true);
-      navigate("/dashboard"); // Redirect to dashboard
+      navigate("/myaccount"); // Redirect to dashboard
     } else {
       showNotification("Invalid email or password.");
     }
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem("loggedInUser");
-    setIsLoggedIn(false);
-    showNotification("Logged out successfully.");
-  };
-
 
   return (
     <>
@@ -81,41 +62,32 @@ function LoginPage() {
                 <h2 className="account-auth__heading">Log in to Exclusive</h2>
                 <span className="account-auth__note">Enter your details below</span>
 
-                {!isLoggedIn ? (
-                  <form className="account-form" onSubmit={handleLogin}>
-                    <input
-                      className="custom-input account-form__input"
-                      type="text"
-                      name="email"
-                      placeholder="Email or Phone Number"
-                      value={formData.email}
-                      onChange={handleChange}
-                    />
-                    <input
-                      className="custom-input account-form__input"
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      value={formData.password}
-                      onChange={handleChange}
-                    />
-                    <div className="account-form__actions account-form__actions--login">
-                      <button className="btn btn--primary account-form__btn account-form__btn--small" type="submit">
-                        Log In
-                      </button>
-                      <Link to="/" className="account-form__reset-pswrd">
-                        Forget Password?
-                      </Link>
-                    </div>
-                  </form>
-                ) : (
-                  <div className="account-form__actions">
-                    <p>You are already logged in.</p>
-                    <button className="btn btn--primary account-form__btn account-form__btn--small" onClick={handleLogout}>
-                      Log Out
+                <form className="account-form" onSubmit={handleLogin}>
+                  <input
+                    className="custom-input account-form__input"
+                    type="text"
+                    name="email"
+                    placeholder="Email or Phone Number"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <input
+                    className="custom-input account-form__input"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <div className="account-form__actions account-form__actions--login">
+                    <button className="btn btn--primary account-form__btn account-form__btn--small" type="submit">
+                      Log In
                     </button>
+                    <Link to="/" className="account-form__reset-pswrd">
+                      Forget Password?
+                    </Link>
                   </div>
-                )}
+                </form>
               </div>
             </div>
           </div>

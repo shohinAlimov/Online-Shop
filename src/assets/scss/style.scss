@@ -9,10 +9,10 @@
 /* Blocks */
 /* __________________________ */
 @import "./blocks/loader.scss";
+@import "./blocks/btn";
 @import "./blocks/header";
 @import "./blocks/burger-menu";
 @import "./blocks/menu-icon";
-@import "./blocks/btn";
 @import "./blocks/hero.scss";
 @import "./blocks/hero-aside.scss";
 @import "./blocks/today-top.scss";
@@ -28,3 +28,7 @@
 @import "./blocks/footer.scss";
 @import "./blocks/account-auth.scss";
 @import "./blocks/account-form.scss";
+@import "./blocks/nav.scss";
+@import "./blocks/dashboard.scss";
+@import "./blocks/sidebar.scss";
+@import "./blocks/content.scss";

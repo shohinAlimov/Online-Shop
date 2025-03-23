@@ -1,0 +1,19 @@
+.content {
+  flex: 1;
+  padding: 40px 80px;
+  background-color: #fff;
+
+  &__header {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 140%;
+    color: $color-accent;
+  }
+
+  &__form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 50px;
+  }
+}
