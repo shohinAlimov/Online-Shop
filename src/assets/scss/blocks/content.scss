@@ -2,6 +2,7 @@
   flex: 1;
   padding: 40px 80px;
   background-color: #fff;
+  box-shadow: 0px 1px 13px 0px #0000000D;
 
   &__header {
     font-family: Poppins;
@@ -9,11 +10,14 @@
     font-size: 20px;
     line-height: 140%;
     color: $color-accent;
+    margin: 0 0 16px;
   }
 
   &__form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px 50px;
+
+    &-group {}
   }
 }
